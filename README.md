@@ -15,6 +15,7 @@ dari browser.
 Setelah itu, baris-baris request tersebut dicetak dalam format yang 
 dapat dibaca. Ketika program dijalankan dan request dikirim melalui browser, output akan
 menampilkan baris-baris request HTTP yang telah dikirim oleh browser.
+<hr>
 
 ## Commit 2 - Returning HTML
 >Pada milestone kedua ini, Saya menggunakan modul filesystem Rust untuk membaca isi file dan mengirimkannya sebagai
@@ -27,6 +28,7 @@ Selanjutnya, isi file tersebut diformat menjadi respons HTTP yang valid dengan m
 header `Content-Length` yang berisi panjang konten. Terakhir, respons dikirim ke klien melalui objek stream menggunakan metode `write_all`.
 
 ![commit2.png](assets/images/commit2.png)
+<hr>
 
 ## Commit 3 - Validating request and selectively responding
 >Pada milestone ketiga ini, Saya menambahkan validasi untuk request HTTP dan selectively responding
@@ -51,6 +53,7 @@ hampir sama dengan kode yang telah ditulis pada milestone kedua.
 Perbedaannya hanya pada `status_line` dan `filename`.
 
 ![commit3.png](assets/images/commit3.png)
+<hr>
 
 ## Commit 4 - Simulation slow respons
 >Pada milestone keempat ini, Saya melakukan simulasi slow response dengan menambahkan 
@@ -61,6 +64,7 @@ Milestone ini mengubah `if-else` menjadi `match` untuk menangani tiga jenis requ
 tidur (sleep) selama 10 detik sebelum mengirimkan respons. Ketika server dijalankan dan 
 request `/sleep` dilakukan, request lain seperti `/` akan tertunda sampai waktu sleep 
 (10 detik) selesai sebelum merespons.
+<hr>
 
 ## Commit 5 - Multithreaded Server
 >Pada milestone kelima ini, Saya membuat multi-threaded web server dengan menggunakan thread pool.
@@ -75,3 +79,20 @@ server memproses banyak koneksi secara bersamaan, meningkatkan throughput.
 Jumlah thread dalam pool dibatasi untuk mencegah serangan Denial of Service (DoS) 
 yang dapat menghabiskan semua sumber daya server. Dengan desain ini, server dapat 
 memproses hingga N permintaan secara concurrent, dengan N adalah jumlah thread dalam pool.
+<hr>
+
+## Bonus -  Function improvement
+>Pada bagian ini, Saya melakukan improvement pada method new.
+
+Sebelumnya, kode yang ditulis menggunakan fungsi `new` yang mana akan langsung memanggil `panic!` 
+apabila jumlah thread = 0. Pada dasarnya, fungsi `new` diharapkan untuk tidak pernah gagal sehingga
+tidak didefinisikan untuk menangani error.
+>![newError.png](assets/images/newError.png)
+
+Perubahan fungsi `new` menjadi `build` menandakan bahwa fungsi tersebut dapat gagal dan mengembalikan hasil Error 
+yang bisa diatur. Misal disini saya memberikan output `Failed to create thread pool: {err}` apabila
+jumlah thread = 0 dan mengakibatkan error pembuatan `ThreadPool`.
+>![buildError.png](assets/images/buildError.png)
+
+Ini lebih baik daripada langsung memanggil `panic!` jika terjadi error karena
+memberi output yang ramah pengguna dan lebih mudah dipahami.
