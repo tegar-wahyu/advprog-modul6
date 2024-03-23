@@ -22,3 +22,23 @@ Selanjutnya, isi file tersebut diformat menjadi respons HTTP yang valid dengan m
 header `Content-Length` yang berisi panjang konten. Terakhir, respons dikirim ke klien melalui objek stream menggunakan metode `write_all`.
 
 ![commit2.png](assets/images/commit2.png)
+
+## Commit 3 Reflection notes
+>Pada milestone ketiga ini, Saya menambahkan validasi untuk request HTTP dan selectively responding
+pada request yang valid.
+
+Kode yang telah ditambahkan menggunakan `next` untuk hanya membaca baris pertama
+dari HTTP request dan disimpan dalam variabel `request_line`.
+```shell
+Request: [
+ "GET / HTTP/1.1", <--- baris pertama
+ "Host: 127.0.0.1:7878", "Upgrade-Insecure-Requests: 1",
+ ...
+]
+```
+Jika `request_line` berisi request GET ke /, maka isi  file `hello.html` 
+akan dikirimkan sebagai respons. Namun, jika bukan request GET ke /, kode 
+akan dieksekusi pada blok `else` untuk menangani request tidak valid dengan
+mengirimkan file `404.html`.
+
+![commit3.png](assets/images/commit3.png)
