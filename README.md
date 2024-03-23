@@ -41,4 +41,8 @@ akan dikirimkan sebagai respons. Namun, jika bukan request GET ke /, kode
 akan dieksekusi pada blok `else` untuk menangani request tidak valid dengan
 mengirimkan file `404.html`.
 
+Refactoring dilakukan karena kode yang ditambahkan pada milestone ini
+hampir sama dengan kode yang telah ditulis pada milestone kedua.
+Perbedaannya hanya pada `status_line` dan `filename`.
+
 ![commit3.png](assets/images/commit3.png)
