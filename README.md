@@ -36,8 +36,8 @@ Request: [
  ...
 ]
 ```
-Jika `request_line` berisi request GET ke /, maka isi  file `hello.html` 
-akan dikirimkan sebagai respons. Namun, jika bukan request GET ke /, kode 
+Jika `request_line` berisi request `GET /`, maka isi  file `hello.html` 
+akan dikirimkan sebagai respons. Namun, jika bukan request `GET /`, kode 
 akan dieksekusi pada blok `else` untuk menangani request tidak valid dengan
 mengirimkan file `404.html`.
 
@@ -46,3 +46,13 @@ hampir sama dengan kode yang telah ditulis pada milestone kedua.
 Perbedaannya hanya pada `status_line` dan `filename`.
 
 ![commit3.png](assets/images/commit3.png)
+
+## Commit 4 Reflection notes
+>Pada milestone keempat ini, Saya melakukan simulasi slow response dengan menambahkan 
+delay 10 detik pada server.
+
+Milestone ini mengubah `if-else` menjadi `match` untuk menangani tiga jenis request HTTP: 
+`GET /`, `GET /sleep`, dan request lainnya. Untuk request `GET /sleep`, server akan 
+tidur (sleep) selama 10 detik sebelum mengirimkan respons. Ketika server dijalankan dan 
+request `/sleep` dilakukan, request lain seperti `/` akan tertunda sampai waktu sleep 
+(10 detik) selesai sebelum merespons.
